@@ -1,8 +1,7 @@
 name : Terraform actions
 
 env: 
-
-  Message: Jhansigithub_Actions
+  Message: Jhansigithub_Actions
 
 on:
   push:
@@ -11,10 +10,9 @@ on:
     branches: [ "main" , "master" ]
   workflow_dispatch:
 
-  
+ 
 jobs:
-
-  terraform:
+   terraform:
     name: 'terraform fmt'
     runs-on : ubuntu-latest
     
