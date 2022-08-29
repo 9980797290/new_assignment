@@ -20,7 +20,8 @@ jobs:
       SECRETACESS : ${{secrets.SECRETACESS}}
       SESSIONTOKEN : ${{secrets.SESSIONTOKEN}}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - uses: hashicorp/setup-terraform@v2
 
