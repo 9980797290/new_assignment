@@ -43,7 +43,7 @@ jobs:
        
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approves
+        run: terraform apply -auto-approve
         working-directory: ${{ env.Message }}
 
       - name: Terraform destroy 
