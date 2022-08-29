@@ -13,45 +13,32 @@ on:
  
 jobs:
     terraform:
-      name: 'terraform fmt'
-      runs-on : ubuntu-latest
+      name: 'terraform fmt'
+      runs-on : ubuntu-latest
     env:
-      AWSACESSKEY: ${{secrets.AWSACESSKEY}}
-      SECRETACESS : ${{secrets.SECRETACESS}}
-      SESSIONTOKEN : ${{secrets.SESSIONTOKEN}}
-      
+      AWSACESSKEY:  ${{secrets.AWSACESSKEY}}
+      SECRETACESS : ${{secrets.SECRETACESS}}
+      SESSIONTOKEN : ${{secrets.SESSIONTOKEN}}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v2
 
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt 
+        working-directory: "./instance/example"
 
-      - name: setu 
-        uses: hashicorp/setup-terraform@v2
-        with :
-          terraform_version: 1.1.7
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: "./instance/example"
 
-      - name: Inatilize
-        id: init
-        run : terraform init
-        working-directory : "./instance/example"
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: "./instance/example"
 
-      - name: Format
-        id: fmt
-        run: terraform fmt
-        working-directory : "./instance/example"
-
-      - name: Validate
-        id: validate
-        run: terraform validate
-        working-directory : "./instance/example"
-
-      - name: plan
-        id: plan
-        run: terraform plan
-        working-directory : "./instance/example"
-
-
-
-
-
-
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+        working-directory: "./instance/example"
