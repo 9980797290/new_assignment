@@ -1,7 +1,7 @@
 name : Terraform actions
 
 env: 
-  Message: Jhansigithub_Actions
+  Message: JhansigithubActions
 
 on:
   push:
@@ -22,9 +22,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - uses: hashicorp/setup-terraform@v2
-
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
       - name: Terraform fmt
         id: fmt
         run: terraform fmt 
