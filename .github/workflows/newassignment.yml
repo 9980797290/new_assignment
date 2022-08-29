@@ -41,3 +41,13 @@ jobs:
         run: terraform plan -no-color
         working-directory: ${{ env.Message }}
        
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -auto-approves
+        working-directory: ${{ env.Message }}
+
+      - name: Terraform destroy 
+        id: destroy
+        run: terraform destroy -auto-approve
+        working-directory: ${{ env.Message }}
+      
