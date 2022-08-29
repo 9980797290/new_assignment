@@ -1,7 +1,7 @@
-name : Terraform actions
+name: JhansiGithubactions
 
-env: 
-  Message: JhansigithubActions
+env:
+   Message : ./instance/example
 
 on:
   push:
@@ -10,38 +10,42 @@ on:
     branches: [ "main" , "master" ]
   workflow_dispatch:
 
- 
 jobs:
-    terraform:
-      name: 'terraform fmt'
-      runs-on : ubuntu-latest
+  terraform-assignment:
+    runs-on: ubuntu-latest
     env:
-      AWSACESSKEY:  ${{secrets.AWSACESSKEY}}
-      SECRETACESS : ${{secrets.SECRETACESS}}
-      SESSIONTOKEN : ${{secrets.SESSIONTOKEN}}
+        AWSACESSKEY:  ${{secrets.AWSACESSKEY}}
+        SECRETACESS : ${{secrets.SECRETACESS}}
+        SESSIONTOKEN : ${{secrets.SESSIONTOKEN}}
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Terraform
+        uses: actions/checkout@v3    
+        
+      - name: Setup Terraform 
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.1.7
+      
       - name: Terraform fmt
         id: fmt
-        run: terraform fmt 
-        working-directory: "./instance/example"
+        run: terraform fmt
+        working-directory: ${{ env.Message }}
+        continue-on-error: true  
 
-      - name: Terraform Init
+      - name: Terraform initializing 
         id: init
         run: terraform init
-        working-directory: "./instance/example"
+        working-directory: ${{ env.Message }}
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-        working-directory: "./instance/example"
+        working-directory: ${{ env.Message}}
 
-      - name: Terraform Plan
+      - name: Terraform plan
         id: plan
+        if: github.event_name == 'push'
         run: terraform plan -no-color
-        working-directory: "./instance/example"
+        working-directory: ${{ env.Message }}
+        continue-on-error: true
