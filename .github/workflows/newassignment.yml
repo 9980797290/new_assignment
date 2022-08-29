@@ -12,11 +12,10 @@ on:
 
  
 jobs:
-   terraform:
-    name: 'terraform fmt'
-    runs-on : ubuntu-latest
-    
-    env:
+    terraform:
+      name: 'terraform fmt'
+      runs-on : ubuntu-latest
+    env:
       AWSACESSKEY: ${{secrets.AWSACESSKEY}}
       SECRETACESS : ${{secrets.SECRETACESS}}
       SESSIONTOKEN : ${{secrets.SESSIONTOKEN}}
